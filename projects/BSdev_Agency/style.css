@@ -1,5 +1,9 @@
 * {
   margin: 0;
+  font-family: "Truculenta", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
 }
 
 body {
@@ -26,7 +30,6 @@ nav {
   width: 100%;
   display: flex;
   flex-direction: row;
-  background-color: rgb(250, 215, 245);
   height: 8vh;
   margin-bottom: 0.5rem;
 }
@@ -62,14 +65,14 @@ nav {
 /*Header*/
 
 .header {
-  background-color: rgb(250, 215, 245);
+  background-color: rgba(245, 200, 240, 0.5);
   width: 100%;
   height: 25vh;
   display: flex;
   flex-direction: column;
   text-align: left;
   box-sizing: border-box;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .heading-text {
@@ -98,16 +101,14 @@ nav {
 /* CONTENT */
 
 .content {
-  font-family: "Truculenta", sans-serif;
-  font-optical-sizing: auto;
-  font-style: normal;
-  font-variation-settings: "wdth" 100;
+  
 
-  background-color: rgb(250, 215, 245);
   display: grid;
   grid-template-columns: 1fr 1fr;
   box-sizing: border-box;
-  
+
+  background-color: rgba(245, 200, 240, .5) ;
+  border-radius: 1rem;
   padding-bottom: 2.5rem;
 }
 .content-item {
@@ -124,7 +125,7 @@ nav {
 }
 
 .item-img img {
-    width: 75%;
+  width: 75%;
 }
 
 .item-text {
@@ -154,14 +155,11 @@ nav {
 }
 
 footer {
-    box-sizing: border-box;
-    position: absolute;
-    bottom: 1rem;
-    right: 1rem;
-    width: 100%;
-    height: 2.5rem;
-    color: black;
-    text-align: right;
-    font-weight: 900;
-    padding-top: 5%;
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  color: black;
+  text-align: right;
+  font-weight: 900;
+  padding: 1rem;
 }
