@@ -1,4 +1,3 @@
-/* General Reset and Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -16,7 +15,6 @@ body {
   align-items: center;
 }
 
-/* Container for page content */
 .container {
   flex: 1;
   width: 100%;
@@ -26,7 +24,6 @@ body {
   padding: 0.5rem;
 }
 
-/* Navigation Bar Styles */
 nav {
   width: 100%;
   display: flex;
@@ -40,21 +37,19 @@ nav {
   align-items: center;
 }
 
+.nav-item a:link {
+  text-decoration: none;
+}
+
 .nav-item.right {
   justify-content: flex-end;
 }
 
-.nav-item a:link{
-  text-decoration: none;
-}
-
-/* Logo Text Styling */
 .logo-text {
   font-family: "Honk", sans-serif;
   font-size: 6vh;
 }
 
-/* Header Styling */
 .header {
   background-color: rgba(245, 200, 240, 0.5);
   padding: 2rem;
@@ -66,7 +61,6 @@ nav {
   font-size: 4rem;
 }
 
-/* Main Content and Carousel Styling */
 .content {
   display: flex;
   flex-direction: column;
@@ -85,18 +79,18 @@ nav {
 .carousel-inner {
   display: flex;
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden; /* enables horizontal scrolling */
 }
 
-/* Card Styling */
 .card {
-  flex: 0 0 calc((100% / 4) - 20px);
+  flex: 0 0 calc((100% / 4) - 20px); /* Adjust the width to fit 3 cards, accounting for 10px margin on each side */
   margin: 10px;
   border-radius: 10px;
   background: #fff;
   color: #333;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
 }
 
 .card:hover {
@@ -106,17 +100,17 @@ nav {
 
 .card img {
   width: 100%;
-  height: 200px;
+  height: 200px; /* Adjust height as needed */
   object-fit: cover;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
 
-.card h3, .card p {
+.card h3,
+.card p {
   padding: 0.5rem;
 }
 
-/* Carousel Arrow Button Styling */
 .arrow {
   position: absolute;
   top: 50%;
@@ -137,13 +131,11 @@ nav {
   right: 0;
 }
 
-/* Footer Styling */
 footer {
   padding: 1rem;
   text-align: right;
 }
 
-/* Responsive Design Adjustments */
 @media (max-width: 768px) {
   .card {
     flex: 0 0 100%;
@@ -159,29 +151,12 @@ footer {
   }
 
   footer {
+    padding: 1rem;
     text-align: center;
   }
 }
 
-/* Dark Mode Specific Styling */
-.dark-mode {
-  background-color: #333;
-  color: #f1f1f1;
-}
-
-.dark-mode .container {
-  background-color: #444;
-}
-
-.dark-mode .header {
-  background-color: rgba(70, 70, 70, 0.5);
-}
-
-.dark-mode .content {
-  background-color: rgba(70, 70, 70, .5);
-}
-
-/* Toggle Switch Styling */
+/* Toggle Switch */
 .switch {
   position: relative;
   display: inline-block;
@@ -202,37 +177,57 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2196F3;
-  transition: .4s;
-  border-radius: 34px;
+  background-color: #2196f3;
+  transition: 0.4s;
+  border-radius: 34px; /* make it round */
 }
 
 .slider:before {
   position: absolute;
-  content: "☀️";
+  content: "☀️"; /* Sun emoji for light mode */
   height: 22px;
   width: 22px;
   left: 3px;
   bottom: 3px;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
   text-align: center;
-  line-height: 22px;
-  border-radius: 50%;
+  line-height: 22px; /* adjust for vertical centering */
+  border-radius: 50%; /* circular shape */
 }
 
 input:checked + .slider {
-  background-color: #2196F3;
+  background-color: #2196f3;
 }
 
 input:checked + .slider:before {
   transform: translateX(22px);
-  content: "🌜";
+  content: "🌜"; /* Moon emoji for dark mode */
 }
 
+/* Rounded sliders */
 .slider.round {
   border-radius: 34px;
 }
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #333;
+  color: #f1f1f1;
+}
+
+.dark-mode .container {
+  background-color: #444;
+}
+
+.dark-mode .header {
+  background-color: rgba(70, 70, 70, 0.5);
+}
+
+.dark-mode .content {
+  background-color: rgba(70, 70, 70, 0.5);
 }
