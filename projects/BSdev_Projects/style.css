@@ -37,10 +37,6 @@ nav {
   align-items: center;
 }
 
-.nav-item a:link{
-  text-decoration: none;
-}
-
 .nav-item.right {
   justify-content: flex-end;
 }
