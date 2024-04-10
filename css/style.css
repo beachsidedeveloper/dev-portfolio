@@ -20,6 +20,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   position: relative;
   padding: 0.5rem;
 }
@@ -37,7 +38,7 @@ nav {
   align-items: center;
 }
 
-.nav-item a:link {
+.nav-item a:link{
   text-decoration: none;
 }
 
@@ -106,8 +107,7 @@ nav {
   border-top-right-radius: 10px;
 }
 
-.card h3,
-.card p {
+.card h3, .card p {
   padding: 0.5rem;
 }
 
@@ -137,7 +137,8 @@ footer {
 }
 
 @media (max-width: 768px) {
-  .card {
+
+  .card{
     flex: 0 0 100%;
     margin: 10px 0;
   }
@@ -155,6 +156,7 @@ footer {
     text-align: center;
   }
 }
+
 
 /* Toggle Switch */
 .switch {
@@ -177,8 +179,8 @@ footer {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #2196f3;
-  transition: 0.4s;
+  background-color: #2196F3;
+  transition: .4s;
   border-radius: 34px; /* make it round */
 }
 
@@ -189,15 +191,16 @@ footer {
   width: 22px;
   left: 3px;
   bottom: 3px;
-  -webkit-transition: 0.4s;
-  transition: 0.4s;
+  -webkit-transition: .4s;
+  transition: .4s;
   text-align: center;
   line-height: 22px; /* adjust for vertical centering */
   border-radius: 50%; /* circular shape */
 }
 
+
 input:checked + .slider {
-  background-color: #2196f3;
+  background-color: #2196F3;
 }
 
 input:checked + .slider:before {
@@ -229,5 +232,6 @@ body.dark-mode {
 }
 
 .dark-mode .content {
-  background-color: rgba(70, 70, 70, 0.5);
+  background-color: rgba(70, 70, 70, .5);
 }
+

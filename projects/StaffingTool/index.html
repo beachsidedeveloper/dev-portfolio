@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Stower Station Assignment</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Stower Station Assignment</h1>
+      <input type="text" id="barcode" placeholder="Enter Barcode Number" />
+      <button id="assignButton" onclick="assignStation()">Assign Station</button>
+      <div id="station" class="station"></div>
+
+      <div class="floors-grid">
+        <div class="floor" id="floor-1">
+          <div class="side west">
+            <h3>1 West</h3>
+          </div>
+          <div class="side east">
+            <h3>1 East</h3>
+          </div>
+        </div>
+        <div class="floor" id="floor-2">
+          <div class="side west">
+            <h3>2 West</h3>
+          </div>
+          <div class="side east">
+            <h3>2 East</h3>
+          </div>
+        </div>
+        <div class="floor" id="floor-3">
+          <div class="side west">
+            <h3>3 West</h3>
+          </div>
+          <div class="side east">
+            <h3>3 East</h3>
+          </div>
+        </div>
+        <div class="floor" id="floor-4">
+          <div class="side west">
+            <h3>4 West</h3>
+          </div>
+          <div class="side east">
+            <h3>4 East</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <div id="alert" class="alert"></div>
+  </body>
+</html>

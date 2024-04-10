@@ -1,0 +1,102 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.8rem;
+    color: #333;
+    margin: 10px 0;
+}
+
+.alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffdddd;
+    color: #a94442;
+    padding: 15px;
+    border-radius: 5px;
+    border: 1px solid #a94442;
+    display: none;
+    z-index: 1000;
+}
+
+
+.floors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 100%;
+    height: 90%;
+    max-width: 1200px;
+    gap: 10px;
+    padding: 10px;
+}
+
+.floor {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.side {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 5px;
+    align-content: start;
+    background-color: #eaeaea;
+    border-radius: 8px;
+    padding: 5px;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.side h3 {
+    margin: 0;
+    padding: 5px;
+    background-color: #cccccc;
+    border-radius: 4px;
+    text-align: center;
+    color: #333;
+    font-size: 1rem;
+}
+
+.station-cell {
+    width: 100%;
+    height: 50px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    border-radius: 4px;
+}
+
+.assigned {
+    background-color: #f88;
+    color: white;
+}
+
+.station-cell:hover {
+    background-color: #cccccc;
+    cursor: pointer;
+}
