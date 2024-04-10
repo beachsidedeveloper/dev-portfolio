@@ -1,53 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <title>Stower Station Assignment</title>
+    <title>Staffing Tool</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+<body>
     <div class="container">
-      <h1>Stower Station Assignment</h1>
-      <input type="text" id="barcode" placeholder="Enter Barcode Number" />
-      <button id="assignButton" onclick="assignStation()">Assign Station</button>
-      <div id="station" class="station"></div>
+        <h1>Station Assignment Tool</h1>
+        <input type="text" id="barcode" placeholder="Enter Barcode Number" />
+        <button id="assignButton" onclick="assignStation()">Assign Station</button>
+        <div id="station" class="station"></div>
 
-      <div class="floors-grid">
-        <div class="floor" id="floor-1">
-          <div class="side west">
-            <h3>1 West</h3>
-          </div>
-          <div class="side east">
-            <h3>1 East</h3>
-          </div>
+        <div class="floor-selection">
+            <h4>Select Floors/Sides</h4>
+            <div>
+                <input type="checkbox" id="floor-1-west" checked>
+                <label for="floor-1-west">1 West</label>
+                <input type="checkbox" id="floor-1-east" checked>
+                <label for="floor-1-east">1 East</label>
+            </div>
+            <div>
+                <input type="checkbox" id="floor-2-west" checked>
+                <label for="floor-2-west">2 West</label>
+                <input type="checkbox" id="floor-2-east" checked>
+                <label for="floor-2-east">2 East</label>
+            </div>
+            <div>
+                <input type="checkbox" id="floor-3-west" checked>
+                <label for="floor-3-west">3 West</label>
+                <input type="checkbox" id="floor-3-east" checked>
+                <label for="floor-3-east">3 East</label>
+            </div>
+            <div>
+                <input type="checkbox" id="floor-4-west" checked>
+                <label for="floor-4-west">4 West</label>
+                <input type="checkbox" id="floor-4-east" checked>
+                <label for="floor-4-east">4 East</label>
+            </div>
         </div>
-        <div class="floor" id="floor-2">
-          <div class="side west">
-            <h3>2 West</h3>
-          </div>
-          <div class="side east">
-            <h3>2 East</h3>
-          </div>
+
+        <div class="floors-grid">
+            <div class="floor" id="floor-1">
+                <div class="side west">
+                    <h3>1 West</h3>
+                </div>
+                <div class="side east">
+                    <h3>1 East</h3>
+                </div>
+            </div>
+            <div class="floor" id="floor-2">
+                <div class="side west">
+                    <h3>2 West</h3>
+                </div>
+                <div class="side east">
+                    <h3>2 East</h3>
+                </div>
+            </div>
+            <div class="floor" id="floor-3">
+                <div class="side west">
+                    <h3>3 West</h3>
+                </div>
+                <div class="side east">
+                    <h3>3 East</h3>
+                </div>
+            </div>
+            <div class="floor" id="floor-4">
+                <div class="side west">
+                    <h3>4 West</h3>
+                </div>
+                <div class="side east">
+                    <h3>4 East</h3>
+                </div>
+            </div>
         </div>
-        <div class="floor" id="floor-3">
-          <div class="side west">
-            <h3>3 West</h3>
-          </div>
-          <div class="side east">
-            <h3>3 East</h3>
-          </div>
-        </div>
-        <div class="floor" id="floor-4">
-          <div class="side west">
-            <h3>4 West</h3>
-          </div>
-          <div class="side east">
-            <h3>4 East</h3>
-          </div>
-        </div>
-      </div>
     </div>
     <script src="script.js"></script>
     <div id="alert" class="alert"></div>
-  </body>
+</body>
 </html>

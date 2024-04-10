@@ -9,9 +9,10 @@ body, html {
 .container {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    max-height: 100vh; /* Limit the height to the viewport */
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Start aligning content from the top */
+    overflow: hidden; /* Hide overflow to prevent scrolling outside the container */
 }
 
 h1 {
@@ -35,6 +36,23 @@ h1 {
     z-index: 1000;
 }
 
+.floor-selection {
+    display: flex;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    width: 90%; /* Limit width to prevent overflow */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    justify-content: center;
+    align-items: center;
+}
+
+.floor-selection div {
+    margin-bottom: 5px;
+}
+
+
 
 .floors-grid {
     display: grid;
@@ -56,6 +74,17 @@ h1 {
     gap: 10px;
     padding: 10px;
     overflow: hidden;
+}
+
+.floors-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding: 10px;
+    overflow: auto; /* Enable scrolling within the grid */
+    max-height: 70vh; /* Limit the grid height to prevent overflow */
+    width: 90%; /* Limit width to prevent overflow */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 .side {

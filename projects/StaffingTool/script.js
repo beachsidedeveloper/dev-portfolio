@@ -154,42 +154,146 @@ const stations = {
   "4-4-18": true,
 };
 
+let assignedStations = {};
+
 document.addEventListener("DOMContentLoaded", () => {
   initializeFloorMaps();
   const barcodeInput = document.getElementById("barcode");
   barcodeInput.addEventListener("keydown", function (event) {
-    if (event.key === "Enter") {
-      event.preventDefault(); // Prevent default Enter behavior
-      document.getElementById("assignButton").click(); // Trigger the button click
-    }
+      if (event.key === "Enter") {
+          event.preventDefault(); // Prevent default Enter behavior
+          assignStation();
+      }
+  });
+
+  document.querySelectorAll('.floor-selection input').forEach(checkbox => {
+      checkbox.addEventListener('change', event => {
+          const [floor, side] = event.target.id.split('-').slice(1);
+          if (!event.target.checked) {
+              unassignAllOnSide(floor, side);
+          }
+          initializeFloorMaps();
+      });
   });
 });
 
 function initializeFloorMaps() {
   for (let floor = 1; floor <= 4; floor++) {
-    const westSide = document.querySelector(`#floor-${floor} .west`);
-    const eastSide = document.querySelector(`#floor-${floor} .east`);
+      const westSideCheckbox = document.getElementById(`floor-${floor}-west`);
+      const eastSideCheckbox = document.getElementById(`floor-${floor}-east`);
 
-    Object.keys(stations).forEach((stationId) => {
-      if (stationId.startsWith(`${floor}-2`)) {
-        westSide.appendChild(createStationCell(stationId));
-      } else if (stationId.startsWith(`${floor}-4`)) {
-        eastSide.appendChild(createStationCell(stationId));
-      }
-    });
+      const westSide = document.querySelector(`#floor-${floor} .west`);
+      const eastSide = document.querySelector(`#floor-${floor} .east`);
+
+      clearSides(westSide, eastSide);
+
+      Object.keys(stations).forEach(stationId => {
+          const isWestSide = stationId.startsWith(`${floor}-2`);
+          const isEastSide = stationId.startsWith(`${floor}-4`);
+          if (isWestSide && westSideCheckbox.checked) {
+              westSide.appendChild(createStationCell(stationId));
+          } else if (isEastSide && eastSideCheckbox.checked) {
+              eastSide.appendChild(createStationCell(stationId));
+          }
+      });
   }
 }
 
 function createStationCell(stationId) {
-    const cell = document.createElement('div');
-    cell.className = 'station-cell';
-    cell.id = stationId;
-    cell.textContent = stationId;
-    return cell;
+  const cell = document.createElement('div');
+  cell.className = 'station-cell';
+  cell.id = stationId;
+
+  const barcode = Object.keys(assignedStations).find(key => assignedStations[key] === stationId);
+  if (barcode) {
+      cell.classList.add('assigned');
+      cell.innerHTML = `${stationId} (${barcode}) <button onclick='unassignStation("${barcode}")'>X</button>`;
+  } else {
+      cell.textContent = stationId;
+  }
+
+  return cell;
 }
 
+function clearSides(westSide, eastSide) {
+  westSide.innerHTML = '';
+  eastSide.innerHTML = '';
+}
 
-let assignedStations = {};
+function unassignAllOnSide(floor, side) {
+  const sidePrefix = `${floor}-${side === 'west' ? '2' : '4'}`;
+  Object.keys(stations).forEach(stationId => {
+      if (stationId.startsWith(sidePrefix) && !stations[stationId]) {
+          unassignStationByStationId(stationId);
+      }
+  });
+}
+
+function unassignStationByStationId(stationId) {
+  const barcode = Object.keys(assignedStations).find(key => assignedStations[key] === stationId);
+  if (barcode) {
+      unassignStation(barcode, false);
+  }
+}
+
+function assignStation() {
+  const barcodeInput = document.getElementById("barcode");
+  const barcode = barcodeInput.value.trim();
+
+  if (!barcode) {
+      showAlert("Please enter a barcode number.");
+      return;
+  }
+
+  if (assignedStations[barcode]) {
+      showAlert(`This employee is already assigned to station ${assignedStations[barcode]}.`);
+      barcodeInput.value = "";
+      return;
+  }
+
+  let availableStationId = Object.keys(stations).find(key => {
+      const [floor, side] = key.split('-');
+      const sideCheckbox = document.getElementById(`floor-${floor}-${side.startsWith('2') ? 'west' : 'east'}`);
+      return stations[key] === true && sideCheckbox.checked;
+  });
+
+  if (availableStationId) {
+      stations[availableStationId] = false;
+      assignedStations[barcode] = availableStationId;
+
+      const stationElement = document.getElementById(availableStationId);
+      if (stationElement) {
+          stationElement.classList.add('assigned');
+          stationElement.innerHTML = `${availableStationId} (${barcode}) <button onclick='unassignStation("${barcode}", true)'>X</button>`;
+      }
+
+      barcodeInput.value = "";
+  } else {
+      showAlert("No stations available.");
+  }
+}
+
+function unassignStation(barcode, showAlertMessage = true) {
+  const stationId = assignedStations[barcode];
+  if (stationId && stations[stationId] !== undefined) {
+      stations[stationId] = true;
+      delete assignedStations[barcode];
+
+      const stationElement = document.getElementById(stationId);
+      if (stationElement) {
+          stationElement.classList.remove('assigned');
+          stationElement.textContent = stationId;
+      }
+
+      if (showAlertMessage) {
+          showAlert(`${barcode} has been unassigned from station ${stationId}.`);
+      }
+  } else {
+      if (showAlertMessage) {
+          showAlert(`No station found for employee ${barcode} to unassign.`);
+      }
+  }
+}
 
 function showAlert(message) {
   const alertElement = document.getElementById("alert");
@@ -198,61 +302,5 @@ function showAlert(message) {
 
   setTimeout(() => {
     alertElement.style.display = "none";
-  }, 6500); // Hide after 8 seconds
-}
-
-function assignStation() {
-  const barcodeInput = document.getElementById("barcode");
-  const barcode = barcodeInput.value.trim();
-
-  if (!barcode) {
-    showAlert("Please enter a barcode number.");
-    return;
-  }
-
-  if (assignedStations[barcode]) {
-    showAlert(
-      `This employee is already assigned to station ${assignedStations[barcode]}.`
-    );
-    barcodeInput.value = ""; // Clear the input field
-    return;
-  }
-
-  let availableStationId = Object.keys(stations).find(
-    (key) => stations[key] === true
-  );
-
-  if (availableStationId) {
-    stations[availableStationId] = false; // Mark the station as unavailable
-    assignedStations[barcode] = availableStationId;
-
-    const stationElement = document.getElementById(availableStationId);
-    if (stationElement) {
-      stationElement.classList.add("assigned");
-      stationElement.innerHTML = `${availableStationId} (${barcode}) <button onclick='unassignStation("${barcode}")'>X</button>`;
-    }
-
-    barcodeInput.value = ""; // Clear the input field after assignment
-  } else {
-    showAlert("No stations available.");
-  }
-}
-
-// Adjust unassignStation function similarly to use showAlert
-
-function unassignStation(barcode) {
-  const stationId = assignedStations[barcode];
-  if (stationId && stations[stationId] !== undefined) {
-    stations[stationId] = true; // Mark the station as available again
-    delete assignedStations[barcode];
-
-    const stationElement = document.getElementById(stationId);
-    if (stationElement) {
-      stationElement.classList.remove("assigned");
-      stationElement.textContent = stationId;
-      showAlert(`${barcode} has been unassigned from station ${stationId}.`);
-    }
-  } else {
-    showAlert(`No station found for employee ${barcode} to unassign.`);
-  }
+  }, 3000);
 }
