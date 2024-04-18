@@ -16,7 +16,7 @@ def submit_chatgpt():
     user_input = request.form['text']
     try:
         chat_completion = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4-turbo",
             messages=[{"role": "user", "content": user_input}]
         )
         response_text = chat_completion.choices[0].message.content.strip() if chat_completion.choices else "No valid response received from the API."

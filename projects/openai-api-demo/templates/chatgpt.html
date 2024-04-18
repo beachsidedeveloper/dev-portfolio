@@ -20,25 +20,48 @@
         <textarea name="text" placeholder="Enter your question"></textarea>
         <button type="submit">Ask GPT-4</button>
       </form>
+      <div id="loading" style="display: none; text-align: center;">
+        <img src="{{ url_for('static', filename='loading.gif') }}" alt="Loading..." height="50px" />
+      </div>
       <div id="response" class="response-area"></div>
     </div>
 
     <script>
       const form = document.querySelector('form');
+      const loadingDiv = document.getElementById('loading');
+      const responseDiv = document.getElementById('response');
+
       form.addEventListener('submit', function(event) {
-          event.preventDefault();
-          const formData = new FormData(form);
-          fetch('/submit_chatgpt', {
-              method: 'POST',
-              body: new URLSearchParams(formData)
-          }).then(response => response.json())
-          .then(data => {
-              const responseDiv = document.getElementById('response');
-              responseDiv.innerText = data.response;
-              responseDiv.style.display = 'block';
-              responseDiv.style.backgroundColor = '#f0f0f0';  // Neutral background for response
-          });
-      });
+    event.preventDefault();
+    const formData = new FormData(form);
+
+    // Show loading indicator
+    loadingDiv.style.display = 'block';
+    responseDiv.style.display = 'none';  // Hide previous response
+
+    setTimeout(() => {
+        fetch('/submit_chatgpt', {
+            method: 'POST',
+            body: new URLSearchParams(formData)
+        }).then(response => response.json())
+        .then(data => {
+            // Hide loading indicator
+            loadingDiv.style.display = 'none';
+            
+            // Display the response
+            responseDiv.innerText = data.response;
+            responseDiv.style.display = 'block';
+            responseDiv.style.backgroundColor = '#f0f0f0';  // Neutral background for response
+        }).catch(error => {
+            // Hide loading indicator and show error
+            loadingDiv.style.display = 'none';
+            responseDiv.innerText = 'Error fetching response: ' + error.message;
+            responseDiv.style.display = 'block';
+            responseDiv.style.backgroundColor = '#f8d7da';  // Light red background for error
+        });
+    }, 2000);  // Delay the fetch call for 2 seconds for visibility
+});
+
   </script>
   
   </body>
