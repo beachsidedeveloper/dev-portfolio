@@ -1,0 +1,48 @@
+<!-- templates/moderation.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moderation Feature</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/moderation">Moderation</a></li>
+        <li><a href="/chatgpt">ChatGPT</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>Text Moderation</h1>
+      <form method="POST" action="/submit_moderation">
+        <textarea
+          name="text"
+          placeholder="Enter text for moderation"
+        ></textarea>
+        <button type="submit">Check Text</button>
+      </form>
+      <div id="result" class="response-area"></div>
+    </div>
+
+    <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const formData = new FormData(form);
+          fetch('/submit_moderation', {
+              method: 'POST',
+              body: new URLSearchParams(formData)
+          }).then(response => response.json())
+          .then(data => {
+              const resultDiv = document.getElementById('result');
+              resultDiv.innerHTML = data.success ? `Posted: ${data.text}` : `Error: ${data.message}`;
+              resultDiv.style.display = 'block';
+              resultDiv.style.backgroundColor = data.success ? '#d4edda' : '#f8d7da';  // Green for success, red for error
+          });
+      });
+  </script>
+  
+  </body>
+</html>

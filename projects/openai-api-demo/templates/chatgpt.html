@@ -1,0 +1,45 @@
+<!-- templates/chatgpt.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat with GPT-4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li><a href="/moderation">Moderation</a></li>
+        <li><a href="/chatgpt">ChatGPT</a></li>
+      </ul>
+    </nav>
+    <div class="container">
+      <h1>ChatGPT</h1>
+      <form method="POST" action="/submit_chatgpt">
+        <textarea name="text" placeholder="Enter your question"></textarea>
+        <button type="submit">Ask GPT-4</button>
+      </form>
+      <div id="response" class="response-area"></div>
+    </div>
+
+    <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(event) {
+          event.preventDefault();
+          const formData = new FormData(form);
+          fetch('/submit_chatgpt', {
+              method: 'POST',
+              body: new URLSearchParams(formData)
+          }).then(response => response.json())
+          .then(data => {
+              const responseDiv = document.getElementById('response');
+              responseDiv.innerText = data.response;
+              responseDiv.style.display = 'block';
+              responseDiv.style.backgroundColor = '#f0f0f0';  // Neutral background for response
+          });
+      });
+  </script>
+  
+  </body>
+</html>
